@@ -1,0 +1,130 @@
+package com.example.tourist_guide;
+
+import android.app.Activity;
+import android.app.Dialog;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Toast;
+
+public class DescriptionActivity extends Activity implements OnClickListener{
+	ImageButton fav;
+	SQLiteDatabase db;
+	//EditText  et_uname
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_description);
+		
+		fav = (ImageButton) findViewById(R.id.imageButton1);
+		fav.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+			
+				final Dialog d = new Dialog(DescriptionActivity.this);
+				d.setContentView(R.layout.loginactivity);
+				d.setTitle("Login Form");
+				d.show();
+				
+				Button btnLogin = (Button) d.findViewById(R.id.button1);
+				Button btnSignup = (Button) findViewById(R.id.button2);
+		        
+		        et_uname =(EditText) findViewById(R.id.editText1);
+		        EditText et_pass =(EditText) findViewById(R.id.editText2);
+		        
+				btnLogin.setOnClickListener(this);
+				btnSignup.setOnClickListener(this);
+//				btnLogin.setOnClickListener(new OnClickListener(
+//						) {
+//					
+//					@Override
+//					public void onClick(View v) {
+//						// TODO Auto-generated method stub
+//						
+//						
+//						db = openOrCreateDatabase("Tourist", MODE_PRIVATE, null);
+//						Cursor c = db.rawQuery("select * from tbl_login where uname="+a+" and pass = "+b+"", null);
+//				        db.close();
+//											
+//						String username = c.getString(0);
+//						String password = c.getString(1);
+//						
+//						//Toast.makeText(getApplicationContext(), username +" " +password+" "+gen, Toast.LENGTH_LONG).show();
+//						if(username.equals(a) && (password.equals(b)))
+//						{
+//							Toast.makeText(getApplicationContext(), "LoginSuccess",Toast.LENGTH_SHORT ).show();
+//						}
+//						else
+//						{
+//							Toast.makeText(getApplicationContext(), "Wrong Username and Password..!!",Toast.LENGTH_SHORT ).show();
+//						}
+//						
+//					}
+//				});
+			}
+		});
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.description, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+		if (id == R.id.action_settings) {
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		if(v.getId() == R.id.button1)
+		{
+			String a = et_uname.getText().toString();
+			String b = et_pass.getText().toString();
+			
+			db = openOrCreateDatabase("Tourist", MODE_PRIVATE, null);
+			Cursor c = db.rawQuery("select * from tbl_login where uname="+a+" and pass = "+b+"", null);
+	        db.close();
+								
+			String username = c.getString(0);
+			String password = c.getString(1);
+			
+			//Toast.makeText(getApplicationContext(), username +" " +password+" "+gen, Toast.LENGTH_LONG).show();
+			if(username.equals(a) && (password.equals(b)))
+			{
+				Toast.makeText(getApplicationContext(), "LoginSuccess",Toast.LENGTH_SHORT ).show();
+			}
+			else
+			{
+				Toast.makeText(getApplicationContext(), "Wrong Username and Password..!!",Toast.LENGTH_SHORT ).show();
+			}
+			
+		
+		}else
+		{
+			
+		}
+	}
+
+	
+}

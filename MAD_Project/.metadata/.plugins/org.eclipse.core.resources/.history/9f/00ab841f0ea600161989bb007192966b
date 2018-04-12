@@ -1,0 +1,71 @@
+package com.example.tourist_guide;
+
+import com.example.tourist_guide.R.string;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
+
+public class ListViewCategoryActivity extends Activity implements OnItemClickListener{
+	ListView lv;
+	Cursor c;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_list_view_category);
+		
+		SQLiteDatabase db = openOrCreateDatabase("Tourist", MODE_PRIVATE, null);
+		db.close();
+		
+		Intent i = getIntent();
+		String str1 = i.getExtras().getString("spin");
+		String str2 = i.getExtras().getString("spin1");
+		Toast.makeText(ListViewCategoryActivity.this, str1, Toast.LENGTH_SHORT).show();
+		Toast.makeText(ListViewCategoryActivity.this, str2, Toast.LENGTH_SHORT).show();
+		
+		lv = (ListView) findViewById(R.id.listView1);
+		lv.setOnItemClickListener(this);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.list_view_category, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+		if (id == R.id.action_settings) {
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		// TODO Auto-generated method stub
+		SQLiteDatabase db1 = openOrCreateDatabase("Tourist", MODE_PRIVATE, null);
+		//db.execSQL("Insert into tbl_demo values('" + fname + "','" + lname + "');");
+		c = db1.rawQuery("select dname from tbl_desc", null);
+		ListAdapter adp = new SimpleCursorAdapter(ListViewCategoryActivity.this, R.layout.activity_list_view_category, c, new String[]{"dname"}, new int[]{R.id.listView1});
+        
+		
+	}
+}

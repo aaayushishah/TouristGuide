@@ -1,0 +1,20 @@
+Auto Rickshaw;6
+Cab;6
+Cafe;4
+Car Rent;6
+Club;2
+Dharamshala;5
+Disco Thack;2
+Famous Places;1
+Farm House;5
+Garden;2
+Guest House;5
+Gym;2
+Heritage;1
+Hospital;3
+Malls;1
+Religious Places;1
+Restaurant;4
+Stores;3
+Theatre;2
+Zoo;1

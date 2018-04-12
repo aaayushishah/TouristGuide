@@ -1,0 +1,6 @@
+1;PlacesToVisit
+2;Entertainment
+3;Medical
+4;Food
+5;Hotel
+6;Vehicle

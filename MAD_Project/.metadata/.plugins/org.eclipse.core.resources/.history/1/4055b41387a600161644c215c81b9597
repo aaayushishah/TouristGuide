@@ -1,0 +1,136 @@
+package com.example.tourist_guide;
+
+import com.example.tourist_guide.R.string;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
+
+public class ListViewCategoryActivity extends Activity implements OnItemClickListener{
+	ListView lv;
+	Cursor c,c1;
+	String str1;
+	SQLiteDatabase db;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_list_view_category);
+		
+		db = openOrCreateDatabase("Tourist", MODE_PRIVATE, null);
+		
+		
+		Intent i = getIntent();
+		//String str1 = i.getExtras().getString("spin");
+		str1 = i.getExtras().getString("spin1");
+		//Toast.makeText(ListViewCategoryActivity.this, str1, Toast.LENGTH_SHORT).show();
+		Toast.makeText(ListViewCategoryActivity.this, str1, Toast.LENGTH_SHORT).show();
+		
+		lv = (ListView) findViewById(R.id.listView1);
+		lv.setOnItemClickListener(this);
+		if(str1.equals("Heritage"))
+		{
+			c = db.rawQuery("select dname as _id from tbl_desc where subcatid=101", null);
+		}else if (str1.equals("Famous Places")) {
+			c = db.rawQuery("select dname as _id from tbl_desc where subcatid=102", null);
+		}else if (str1.equals("Religious Places")) {
+			c = db.rawQuery("select dname as _id from tbl_desc where subcatid=103", null);
+		}else if (str1.equals("Malls")) {
+			c = db.rawQuery("select dname as _id from tbl_desc where subcatid=104", null);
+		}else if (str1.equals("Zoo")) {
+			c = db.rawQuery("select dname as _id from tbl_desc where subcatid=105", null);
+		}
+		
+		else if (str1.equals("Theatre")) {
+			c = db.rawQuery("select dname as _id from tbl_desc where subcatid=106", null);
+		}else if (str1.equals("Garden")) {
+			c = db.rawQuery("select dname as _id from tbl_desc where subcatid=107", null);
+		}else if (str1.equals("Disco Thack")) {
+			c = db.rawQuery("select dname as _id from tbl_desc where subcatid=108", null);
+		}else if (str1.equals("Club")) {
+			c = db.rawQuery("select dname as _id from tbl_desc where subcatid=109", null);
+		}else if (str1.equals("Gym")) {
+			c = db.rawQuery("select dname as _id from tbl_desc where subcatid=110", null);
+		}
+		
+		
+		else if (str1.equals("Stores")) {
+			c = db.rawQuery("select dname as _id from tbl_desc where subcatid=111", null);
+		}else if (str1.equals("Hospital")) {
+			c = db.rawQuery("select dname as _id from tbl_desc where subcatid=112", null);
+		}
+		
+		else if (str1.equals("Restaurant")) {
+			c = db.rawQuery("select dname as _id from tbl_desc where subcatid=113", null);
+		}else if (str1.equals("Cafe")) {
+			c = db.rawQuery("select dname as _id from tbl_desc where subcatid=114", null);
+		}
+		
+		else if (str1.equals("Guest House")) {
+			c = db.rawQuery("select dname as _id from tbl_desc where subcatid=115", null);
+		}else if (str1.equals("Dharamshala")) {
+			c = db.rawQuery("select dname as _id from tbl_desc where subcatid=116", null);
+		}else if (str1.equals("Farm House")) {
+			c = db.rawQuery("select dname as _id from tbl_desc where subcatid=117", null);
+		}
+		
+		else if (str1.equals("Car Rent")) {
+			c = db.rawQuery("select dname as _id from tbl_desc where subcatid=118", null);
+		}else if (str1.equals("Cab")) {
+			c = db.rawQuery("select dname as _id from tbl_desc where subcatid=119", null);
+		}else if (str1.equals("Auto Rickshaw")) {
+			c = db.rawQuery("select dname as _id from tbl_desc where subcatid=120", null);
+		}
+		
+
+	   // ArrayAdapter<String> adp = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,names);
+		ListAdapter adp = new SimpleCursorAdapter(ListViewCategoryActivity.this,R.layout.listviewdemo, c, new String[]{"_id"}, new int[]{R.id.textViewlist});
+        lv.setAdapter(adp);
+        db.close();
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.list_view_category, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+		if (id == R.id.action_settings) {
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		// TODO Auto-generated method stub
+		
+		db = openOrCreateDatabase("Tourist", MODE_PRIVATE, null);
+		String val = parent.getSelectedItem().toString();
+		if(str1.equals("Heritage"))
+		{
+			c1 = db.rawQuery("select desc as _id from tbl_desc where dname='"+val+"' and ", null);
+			
+		}
+		db.close();
+	}
+}
